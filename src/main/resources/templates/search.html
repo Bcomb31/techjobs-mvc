@@ -20,7 +20,7 @@
                         name="searchType"
                         th:id="${column.key}"
                         th:value="${column.key}"
-                        th:checked="${column.key == 'all'}"/>
+                        th:checked="${column.key == searchType}"/>
                 <label th:for="${column.key}" th:text="${column.value}"></label>
             </span>
 
@@ -35,8 +35,8 @@
     </form>
 
     <hr />
-
-    <!-- TODO #2 - Loop over jobs map to display all job fields -->
+    <div th:replace="fragments::total-count"></div>
+    <table th:replace="fragments::job-listing"></table>
 
 </div>
 

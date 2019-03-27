@@ -20,12 +20,25 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a th:href="@{/search}">Search</a></li>
-                    <li><a th:href="@{/list}">List</a></li>
+                    <li th:each="action: ${actions}">
+                        <a th:href="@{'/' + ${action.key}}" th:text="${action.value}"></a>
+                    </li>
                 </ul>
             </div>
         </div>
     </div>
+    <div>
 
+        <table th:fragment="job-listing" class="job-listing" th:each="job: ${jobs}">
+            <tr th:each="mapEntry: ${job}" th:switch="${mapEntry.key}">
+            <td th:text="${#strings.capitalizeWords(mapEntry.key)}"></td>
+            <td th:case="'name'" th:text="${mapEntry.value}"></td>
+            <td th:case="*"><a th:href="@{/list/jobs(column=${mapEntry.key},value=${mapEntry.value})}" th:text="${mapEntry.value}"></a></td>
+            </tr>
+        </table>
+        <div th:fragment="total-count">
+            <h3 th:if="${jobs}" th:text="${jobs.size() + ' Result(s)'}">Results</h3>
+        </div>
+    </div>
 </body>
 </html>
